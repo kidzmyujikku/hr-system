@@ -21,8 +21,5 @@ func RegisterRoutes(r *gin.Engine) {
 		admin.GET("/pay-cycle", ListPayCycles)
 		admin.PUT("/pay-cycle/:id", UpdatePayCycle)
 		admin.DELETE("/pay-cycle/:id", DeletePayCycle)
-
-		// admin.POST("/payroll/run", RunPayroll)
-		// admin.GET("/payslip-summary", GetPayrollSummary)
 	}
 }
