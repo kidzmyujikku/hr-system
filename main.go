@@ -21,6 +21,8 @@ func main() {
 
 	config.DB.AutoMigrate(
 		&models.User{},
+		&models.AuditLog{},
+		&models.PayCycle{},
 	)
 
 	handlers.RegisterRoutes(r)
