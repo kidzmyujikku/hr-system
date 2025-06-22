@@ -18,7 +18,7 @@ var (
 	ErrDateRange            = errors.New("end date must be after start date")
 	ErrPayCycleExists       = errors.New("a pay cycle already exists in this range")
 	ErrPayCycleNotFound     = errors.New("pay cycle not found")
-	ErrPayCycleIsProcessed  = errors.New("cannot delete a processed pay cycle")
+	ErrPayCycleIsProcessed  = errors.New("cannot process a processed pay cycle")
 	ErrFailedDeletePayCycle = errors.New("failed to delete pay cycle")
 )
 

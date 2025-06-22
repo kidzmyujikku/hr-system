@@ -20,14 +20,14 @@ func SubmitAttendance(userID uint, ip, reqID string) (string, error) {
 		return "", err
 	}
 
-	now := time.Now().In(loc)
+	now := time.Now()
 	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, loc)
 
-	// // Reject weekend submissions
-	// weekday := now.Weekday()
-	// if weekday == time.Saturday || weekday == time.Sunday {
-	// 	return "", ErrWeekendSubmission
-	// }
+	// Reject weekend submissions
+	weekday := now.Weekday()
+	if weekday == time.Saturday || weekday == time.Sunday {
+		return "", ErrWeekendSubmission
+	}
 
 	var attendance models.Attendance
 	err = config.DB.

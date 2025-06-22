@@ -21,6 +21,10 @@ func RegisterRoutes(r *gin.Engine) {
 		admin.GET("/pay-cycle", ListPayCycles)
 		admin.PUT("/pay-cycle/:id", UpdatePayCycle)
 		admin.DELETE("/pay-cycle/:id", DeletePayCycle)
+
+		admin.POST("/payroll/run", RunPayroll)
+
+		admin.POST("/summary", Summary)
 	}
 
 	emp := auth.Group("/employee")
@@ -32,6 +36,8 @@ func RegisterRoutes(r *gin.Engine) {
 		emp.GET("/reimbursement", ListReimbursement)
 		emp.PUT("/reimbursement/:id", UpdateReimbursement)
 		emp.DELETE("/reimbursement/:id", DeleteReimbursement)
+
+		emp.GET("/payslip", ListPayslip)
 	}
 
 }
