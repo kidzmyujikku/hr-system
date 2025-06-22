@@ -23,6 +23,7 @@ func main() {
 		&models.User{},
 		&models.AuditLog{},
 		&models.PayCycle{},
+		&models.Attendance{},
 	)
 
 	handlers.RegisterRoutes(r)

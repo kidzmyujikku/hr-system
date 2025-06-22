@@ -3,37 +3,21 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"hr-system/config"
 	"hr-system/internal/handlers"
 	"hr-system/internal/middleware"
 
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 )
 
-func setupRouterForPaycycle() *gin.Engine {
-	err := godotenv.Load("../.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	config.InitDB()
-
-	r := gin.Default()
-	adminAuth := middleware.JwtMiddleware()
-	r.POST("/admin/paycycle", adminAuth.MiddlewareFunc(), handlers.CreatePayCycle)
-	return r
-}
-
 func TestCreatePayCycle_InvalidDateFormat(t *testing.T) {
-	router := setupRouterForPaycycle()
-	token := loginAndGetAdminToken(t) // implement this
+	router := setupRouter()
+	adminAuth := middleware.JwtMiddleware()
+	router.POST("/admin/paycycle", adminAuth.MiddlewareFunc(), handlers.CreatePayCycle)
+	token := loginAndGetToken(t, "admin", "admin123") // implement this
 
 	payload := map[string]string{
 		"start_date": "bad-date",
@@ -52,8 +36,11 @@ func TestCreatePayCycle_InvalidDateFormat(t *testing.T) {
 }
 
 func TestCreatePayCycle_EndBeforeStart(t *testing.T) {
-	router := setupRouterForPaycycle()
-	token := loginAndGetAdminToken(t)
+	router := setupRouter()
+	adminAuth := middleware.JwtMiddleware()
+	router.POST("/admin/paycycle", adminAuth.MiddlewareFunc(), handlers.CreatePayCycle)
+
+	token := loginAndGetToken(t, "admin", "admin123")
 
 	payload := map[string]string{
 		"start_date": "2025-11-30",

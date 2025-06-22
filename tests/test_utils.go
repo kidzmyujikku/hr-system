@@ -3,17 +3,20 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
+	"hr-system/config"
 	"hr-system/internal/middleware"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/require"
 )
 
-func loginAndGetAdminToken(t *testing.T) string {
+func loginAndGetToken(t *testing.T, username, password string) string {
 	// Optional: set up a minimal router just for login
 	r := gin.Default()
 	jwt := middleware.JwtMiddleware()
@@ -21,8 +24,8 @@ func loginAndGetAdminToken(t *testing.T) string {
 
 	// Login payload
 	payload := map[string]string{
-		"username": "admin",
-		"password": "admin123",
+		"username": username,
+		"password": password,
 	}
 	body, _ := json.Marshal(payload)
 
@@ -43,4 +46,16 @@ func loginAndGetAdminToken(t *testing.T) string {
 	require.True(t, ok, "Token not found in login response")
 
 	return token
+}
+
+func setupRouter() *gin.Engine {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	config.InitDB()
+
+	r := gin.Default()
+	return r
 }
