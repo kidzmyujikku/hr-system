@@ -26,6 +26,7 @@ func RegisterRoutes(r *gin.Engine) {
 	emp := auth.Group("/employee")
 	{
 		emp.POST("/attendance", SubmitAttendance)
+		emp.POST("/overtime", SubmitOvertime)
 	}
 
 }

@@ -24,6 +24,7 @@ func main() {
 		&models.AuditLog{},
 		&models.PayCycle{},
 		&models.Attendance{},
+		&models.Overtime{},
 	)
 
 	handlers.RegisterRoutes(r)
