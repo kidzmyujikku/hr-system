@@ -29,7 +29,7 @@ func hashPassword(pw string) string {
 }
 
 func main() {
-	err := godotenv.Load("../.env")
+	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("❌ Error loading .env file:", err)
 	}
@@ -69,7 +69,7 @@ func main() {
 	db.FirstOrCreate(&admin, User{Username: "admin"})
 
 	rand.Seed(time.Now().UnixNano())
-	for i := 1; i <= 100; i++ {
+	for i := 1; i <= 1; i++ {
 		user := User{
 			Username:  fmt.Sprintf("employee%d", i),
 			Password:  hashPassword("password123"),
