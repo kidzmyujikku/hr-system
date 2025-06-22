@@ -27,6 +27,11 @@ func RegisterRoutes(r *gin.Engine) {
 	{
 		emp.POST("/attendance", SubmitAttendance)
 		emp.POST("/overtime", SubmitOvertime)
+
+		emp.POST("/reimbursement", CreateReimbursement)
+		emp.GET("/reimbursement", ListReimbursement)
+		emp.PUT("/reimbursement/:id", UpdateReimbursement)
+		emp.DELETE("/reimbursement/:id", DeleteReimbursement)
 	}
 
 }
