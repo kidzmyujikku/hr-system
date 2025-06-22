@@ -1,20 +1,26 @@
 package tests
 
 import (
+	"fmt"
 	"hr-system/internal/handlers"
 	"hr-system/internal/middleware"
+	"math/rand"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestSubmitAttendance_CheckInAndOut(t *testing.T) {
+	rand.Seed(time.Now().UnixNano())
+	randomUsername := fmt.Sprintf("employee%d", rand.Intn(100)+1)
+
 	router := setupRouter()
 	jwt := middleware.JwtMiddleware()
 	router.POST("/employee/attendance", jwt.MiddlewareFunc(), handlers.SubmitAttendance)
-	token := loginAndGetToken(t, "employee6", "password123") // implement this
+	token := loginAndGetToken(t, randomUsername, "password123") // implement this
 
 	// First call: should check in
 	req, _ := http.NewRequest("POST", "/employee/attendance", nil)
