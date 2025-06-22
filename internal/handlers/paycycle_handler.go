@@ -12,7 +12,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// Utility for logging errors consistently
 func logHandlerError(action string, userID uint, ip, reqID string, err error) {
 	log.WithFields(log.Fields{
 		"action": action,

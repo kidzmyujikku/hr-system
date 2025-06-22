@@ -22,4 +22,10 @@ func RegisterRoutes(r *gin.Engine) {
 		admin.PUT("/pay-cycle/:id", UpdatePayCycle)
 		admin.DELETE("/pay-cycle/:id", DeletePayCycle)
 	}
+
+	emp := auth.Group("/employee")
+	{
+		emp.POST("/attendance", SubmitAttendance)
+	}
+
 }
